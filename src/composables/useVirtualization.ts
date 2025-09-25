@@ -60,8 +60,8 @@ export function useVirtualization(
 
   const topSpacerHeight = computed(() => virtualViewport.value.rowStart * ROW_HEIGHT)
 
-  const bottomSpacerHeight = computed(() =>
-    (rowCount.value - virtualViewport.value.rowEnd - 1) * ROW_HEIGHT
+  const bottomSpacerHeight = computed(
+    () => (rowCount.value - virtualViewport.value.rowEnd - 1) * ROW_HEIGHT
   )
 
   const leftSpacerWidth = computed(() => {

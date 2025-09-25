@@ -7,9 +7,7 @@ export function useClipboard() {
   const clipboardSource = ref<CellRange | null>(null)
 
   function serializeToTSV(data: GridCell[][]): string {
-    return data.map(row =>
-      row.map(cell => cell.value?.toString() || '').join('\t')
-    ).join('\n')
+    return data.map(row => row.map(cell => cell.value?.toString() || '').join('\t')).join('\n')
   }
 
   function parseFromTSV(text: string): GridCell[][] {
@@ -26,7 +24,7 @@ export function useClipboard() {
   async function copyToClipboard(text: string): Promise<void> {
     try {
       await navigator.clipboard.writeText(text)
-    } catch (err) {
+    } catch {
       const textarea = document.createElement('textarea')
       textarea.value = text
       textarea.style.position = 'fixed'
@@ -41,7 +39,7 @@ export function useClipboard() {
   async function readFromClipboard(): Promise<string> {
     try {
       return await navigator.clipboard.readText()
-    } catch (err) {
+    } catch {
       return ''
     }
   }

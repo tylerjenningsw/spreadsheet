@@ -27,9 +27,10 @@ export function useFormulas(cells: Ref<GridCell[][]>) {
     } else {
       cell.value = result.value
       cell.error = undefined
-      cell.display = typeof result.value === 'number'
-        ? result.value.toFixed(2).replace(/\.?0+$/, '')
-        : result.value.toString()
+      cell.display =
+        typeof result.value === 'number'
+          ? result.value.toFixed(2).replace(/\.?0+$/, '')
+          : result.value.toString()
     }
   }
 
@@ -100,12 +101,16 @@ export function useFormulas(cells: Ref<GridCell[][]>) {
     }
   }
 
-  watch(cells, () => {
-    for (const [cellId, formula] of formulaCells.value) {
-      const [row, col] = cellId.split('-').map(Number)
-      evaluateFormula(formula, row, col)
-    }
-  }, { deep: true })
+  watch(
+    cells,
+    () => {
+      for (const [cellId, formula] of formulaCells.value) {
+        const [row, col] = cellId.split('-').map(Number)
+        evaluateFormula(formula, row, col)
+      }
+    },
+    { deep: true }
+  )
 
   return {
     updateFormula,

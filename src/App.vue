@@ -6,34 +6,32 @@
           <span class="navbar-brand mb-0 h1">Vue Spreadsheet Component</span>
           <div class="d-flex gap-2">
             <button
-              @click="handleUndo"
               class="btn btn-light btn-sm"
               :disabled="!canUndo"
               title="Undo (Ctrl+Z)"
+              @click="handleUndo"
             >
               ↶ Undo
             </button>
             <button
-              @click="handleRedo"
               class="btn btn-light btn-sm"
               :disabled="!canRedo"
               title="Redo (Ctrl+Y)"
+              @click="handleRedo"
             >
               ↷ Redo
             </button>
             <div class="vr"></div>
-            <button @click="exportCSV" class="btn btn-light btn-sm">
-              Export CSV
-            </button>
+            <button class="btn btn-light btn-sm" @click="exportCSV">Export CSV</button>
             <label class="btn btn-light btn-sm mb-0">
               Import CSV
-              <input type="file" @change="importCSV" accept=".csv" style="display: none">
+              <input type="file" accept=".csv" style="display: none" @change="importCSV" />
             </label>
           </div>
         </div>
       </nav>
       <SpreadsheetGrid ref="spreadsheetRef" />
-      <div class="demo-overlay" v-if="showDemo">
+      <div v-if="showDemo" class="demo-overlay">
         <div class="demo-card">
           <h5>Welcome to Vue Spreadsheet Component!</h5>
           <p>Key Features:</p>
@@ -47,8 +45,8 @@
             <li><strong>Resize:</strong> Drag column borders to resize</li>
             <li><strong>CSV:</strong> Import/Export via toolbar buttons</li>
           </ul>
-          <button @click="loadDemoData" class="btn btn-primary me-2">Load Demo Data</button>
-          <button @click="showDemo = false" class="btn btn-secondary">Start Fresh</button>
+          <button class="btn btn-primary me-2" @click="loadDemoData">Load Demo Data</button>
+          <button class="btn btn-secondary" @click="showDemo = false">Start Fresh</button>
         </div>
       </div>
     </div>
@@ -85,13 +83,13 @@ function importCSV(event: Event) {
   if (!file || !spreadsheetRef.value) return
 
   const reader = new FileReader()
-  reader.onload = (e) => {
+  reader.onload = e => {
     const text = e.target?.result as string
     const data = CsvService.parse(text)
     spreadsheetRef.value!.importData(data)
   }
-  reader.readAsText(file);
-  (event.target as HTMLInputElement).value = ''
+  reader.readAsText(file)
+  ;(event.target as HTMLInputElement).value = ''
 }
 
 function loadDemoData() {

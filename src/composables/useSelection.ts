@@ -74,9 +74,11 @@ export function useSelection() {
   }
 
   function isCellSelected(coord: CellCoordinate): boolean {
-    if (activeCell.value &&
-        activeCell.value.row === coord.row &&
-        activeCell.value.col === coord.col) {
+    if (
+      activeCell.value &&
+      activeCell.value.row === coord.row &&
+      activeCell.value.col === coord.col
+    ) {
       return true
     }
 

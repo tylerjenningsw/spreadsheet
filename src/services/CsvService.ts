@@ -7,19 +7,21 @@ export class CsvService {
 
     for (const row of rows) {
       const cells = this.parseCSVLine(row)
-      result.push(cells.map(value => ({
-        value: this.parseValue(value),
-        display: value
-      })))
+      result.push(
+        cells.map(value => ({
+          value: this.parseValue(value),
+          display: value
+        }))
+      )
     }
 
     return result
   }
 
   static generate(data: GridCell[][]): string {
-    return data.map(row =>
-      row.map(cell => this.escapeCSVValue(cell.value?.toString() || '')).join(',')
-    ).join('\n')
+    return data
+      .map(row => row.map(cell => this.escapeCSVValue(cell.value?.toString() || '')).join(','))
+      .join('\n')
   }
 
   private static parseCSVLine(line: string): string[] {

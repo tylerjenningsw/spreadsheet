@@ -5,9 +5,7 @@ import { FormulaParser } from './FormulaParser'
 export class FormulaEvaluator {
   private visitedCells = new Set<string>()
 
-  constructor(
-    private getCell: (row: number, col: number) => GridCell | null
-  ) {}
+  constructor(private getCell: (row: number, col: number) => GridCell | null) {}
 
   evaluate(formula: string, currentCellId?: string): FormulaEvaluationResult {
     try {

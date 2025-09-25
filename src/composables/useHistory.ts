@@ -38,10 +38,7 @@ export function useHistory() {
     }
   }
 
-  function createSetCellAction(
-    before: CellSnapshot,
-    after: CellSnapshot
-  ): SetCellAction {
+  function createSetCellAction(before: CellSnapshot, after: CellSnapshot): SetCellAction {
     return {
       type: ActionType.SET_CELL,
       timestamp: Date.now(),
@@ -50,10 +47,7 @@ export function useHistory() {
     }
   }
 
-  function createSetRangeAction(
-    before: RangeSnapshot,
-    after: RangeSnapshot
-  ): SetRangeAction {
+  function createSetRangeAction(before: RangeSnapshot, after: RangeSnapshot): SetRangeAction {
     return {
       type: ActionType.SET_RANGE,
       timestamp: Date.now(),
@@ -62,11 +56,7 @@ export function useHistory() {
     }
   }
 
-
-  function createPasteRangeAction(
-    before: RangeSnapshot,
-    after: RangeSnapshot
-  ): PasteRangeAction {
+  function createPasteRangeAction(before: RangeSnapshot, after: RangeSnapshot): PasteRangeAction {
     return {
       type: ActionType.PASTE_RANGE,
       timestamp: Date.now(),
@@ -89,11 +79,7 @@ export function useHistory() {
     }
   }
 
-  function createCellSnapshot(
-    row: number,
-    col: number,
-    cell: GridCell | null
-  ): CellSnapshot {
+  function createCellSnapshot(row: number, col: number, cell: GridCell | null): CellSnapshot {
     if (!cell) {
       return {
         row,
@@ -133,9 +119,7 @@ export function useHistory() {
     }
   }
 
-  function undo(
-    applyAction: (action: HistoryAction, isUndo: boolean) => void
-  ): boolean {
+  function undo(applyAction: (action: HistoryAction, isUndo: boolean) => void): boolean {
     if (!canUndo.value) return false
 
     const action = history.value.past.pop()
@@ -147,9 +131,7 @@ export function useHistory() {
     return true
   }
 
-  function redo(
-    applyAction: (action: HistoryAction, isUndo: boolean) => void
-  ): boolean {
+  function redo(applyAction: (action: HistoryAction, isUndo: boolean) => void): boolean {
     if (!canRedo.value) return false
 
     const action = history.value.future.shift()
@@ -208,11 +190,7 @@ export function useHistory() {
     pushAction(action)
   }
 
-  function recordColumnResize(
-    columnIndex: number,
-    beforeWidth: number,
-    afterWidth: number
-  ) {
+  function recordColumnResize(columnIndex: number, beforeWidth: number, afterWidth: number) {
     const action = createResizeColumnAction(columnIndex, beforeWidth, afterWidth)
     pushAction(action)
   }

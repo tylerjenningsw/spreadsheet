@@ -1,14 +1,20 @@
 <template>
-  <div class="spreadsheet-container" ref="containerRef">
-    <div class="spreadsheet-wrapper" ref="wrapperRef" @mouseup="handleMouseUp" @mousemove="handleGlobalMouseMove" @mouseleave="handleMouseLeave">
+  <div ref="containerRef" class="spreadsheet-container">
+    <div
+      ref="wrapperRef"
+      class="spreadsheet-wrapper"
+      @mouseup="handleMouseUp"
+      @mousemove="handleGlobalMouseMove"
+      @mouseleave="handleMouseLeave"
+    >
       <table class="table table-bordered spreadsheet-grid">
         <colgroup>
-          <col class="row-header-col" :style="{ width: '50px' }">
+          <col class="row-header-col" :style="{ width: '50px' }" />
           <col
             v-for="col in columnCount"
             :key="col - 1"
             :style="{ width: columnWidths[col - 1] + 'px' }"
-          >
+          />
         </colgroup>
         <thead>
           <tr>
@@ -78,19 +84,12 @@ import { useFormulas } from '../composables/useFormulas'
 import { useHistory } from '../composables/useHistory'
 import { columnIndexToLabel } from '../utils/columnHelpers'
 import { CellCoordinate, GridCell } from '../types/grid'
-import { ActionType } from '../types/history'
+import { ActionType, HistoryAction } from '../types/history'
 import type { NavigationDirection } from '../types/navigation'
 import CellEditor from './CellEditor.vue'
 
-const {
-  cells,
-  rowCount,
-  columnCount,
-  initializeGrid,
-  getCell,
-  setCell,
-  ensureSize
-} = useGridModel()
+const { cells, rowCount, columnCount, initializeGrid, getCell, setCell, ensureSize } =
+  useGridModel()
 
 const {
   activeCell,
@@ -114,14 +113,7 @@ const wrapperRef = ref<HTMLElement>()
 const isDragging = ref(false)
 const dragScrollInterval = ref<number | null>(null)
 const { updateFormula } = useFormulas(cells)
-const {
-  canUndo,
-  canRedo,
-  undo,
-  redo,
-  recordCellChange,
-  recordPaste
-} = useHistory()
+const { canUndo, canRedo, undo, redo, recordCellChange, recordPaste } = useHistory()
 
 // Define undo/redo functions early
 function performUndo() {
@@ -132,7 +124,7 @@ function performRedo() {
   return redo(applyHistoryAction)
 }
 
-function applyHistoryAction(action: any, isUndo: boolean) {
+function applyHistoryAction(action: HistoryAction, isUndo: boolean) {
   switch (action.type) {
     case ActionType.SET_CELL: {
       const snapshot = isUndo ? action.before : action.after
@@ -339,7 +331,8 @@ function handleGlobalMouseMove(event: MouseEvent) {
   let targetCol = -1
   let accumulatedWidth = ROW_HEADER_WIDTH
 
-  for (let c = 0; c < columnCount.value + 20; c++) { // Check beyond current grid
+  for (let c = 0; c < columnCount.value + 20; c++) {
+    // Check beyond current grid
     const colWidth = columnWidths[c] || 100
     if (relativeX < accumulatedWidth + colWidth) {
       targetCol = c

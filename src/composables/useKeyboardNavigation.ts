@@ -199,8 +199,7 @@ export function useKeyboardNavigation() {
     }
   }
 
-  function cleanupHandlers() {
-  }
+  function cleanupHandlers() {}
 
   return {
     setupKeyboardHandlers,
