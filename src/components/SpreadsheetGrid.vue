@@ -79,6 +79,7 @@ import { useHistory } from '../composables/useHistory'
 import { columnIndexToLabel } from '../utils/columnHelpers'
 import { CellCoordinate, GridCell } from '../types/grid'
 import { ActionType } from '../types/history'
+import type { NavigationDirection } from '../types/navigation'
 import CellEditor from './CellEditor.vue'
 
 const {
@@ -491,7 +492,7 @@ function commitEdit() {
   }
 }
 
-function handleEditorNavigate(direction: 'up' | 'down' | 'left' | 'right' | 'tab') {
+function handleEditorNavigate(direction: NavigationDirection) {
   if (!activeCell.value) return
 
   const { row, col } = activeCell.value

@@ -12,6 +12,7 @@
 
 <script setup lang="ts">
 import { ref, onMounted } from 'vue'
+import type { NavigationDirection } from '../types/navigation'
 
 interface Props {
   value: string
@@ -20,7 +21,7 @@ interface Props {
 interface Emits {
   (e: 'update', value: string): void
   (e: 'cancel'): void
-  (e: 'navigate', direction: 'up' | 'down' | 'left' | 'right' | 'tab'): void
+  (e: 'navigate', direction: NavigationDirection): void
 }
 
 const props = defineProps<Props>()
